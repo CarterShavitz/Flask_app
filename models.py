@@ -50,8 +50,8 @@ class FoodModel:
        self.conn.commit()
        self.conn.close()
 
-   def get_by_id(self, _id):
-       where_clause = f"AND id={_id}"
+   def get_by_id(self, id):
+       where_clause = f"id = {id}"
        return self.list_items(where_clause)
 
    def create(self, params):
@@ -67,7 +67,7 @@ class FoodModel:
        return self.get_by_id(result.lastrowid)
 
    def delete(self, item_id):
-       query = f"DELETE {self.TABLENAME} " \
+       query = f"DELETE FROM {self.TABLENAME} " \
                f"WHERE id = {item_id}"
        print (query)
        self.conn.execute(query)
@@ -88,10 +88,10 @@ class FoodModel:
        self.conn.execute(query)
        return self.get_by_id(item_id)
 
-   def list_items(self, where_clause=""):
+   def list_items(self, where_clause="TRUE"):
        query = f"SELECT id, Name, Calories " \
-               f"from {self.TABLENAME}"
-               # WHERE _is_deleted != {1} " + where_clause
+               f"from {self.TABLENAME} " \
+               f"WHERE {where_clause}"
        print (query)
        result_set = self.conn.execute(query).fetchall()
        print (result_set)

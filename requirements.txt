@@ -1,0 +1,5 @@
+Flask  
+Flask-MySQL==1.4.0  
+PyMySQL==0.9.3
+mysql-connector-python
+
